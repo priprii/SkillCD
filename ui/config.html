@@ -1,0 +1,55 @@
+<html>
+<head>
+<script src="config.js"></script>
+<link rel="stylesheet" href="config.css">
+</head>
+<body>
+	<div class="grid-container">
+		<div class="header">
+			<div id="title"><p>SkillCD Config</p></div>
+			<div id="close"></div>
+		</div>
+		
+		<div class="config">
+			<table id="configtable">
+				<tbody>
+					<tr>
+						<td class="option">Enable</td>
+						<td class="input"><input id='checkEnabled' type='checkbox' checked /></td>
+						<td class="option">Keybind</td>
+						<td class="input"><input id="textKeybind" type="text"></td>
+					</tr>
+					<tr>
+						<td class="option" id="textCombat">OOC Time</td>
+						<td class="input"><input id="sliderCombat" class="slider" type="range" min="3" max="20" value="6"></td>
+						<td class="option" id="textIcon">Icon Scale</td>
+						<td class="input"><input id="sliderIcon" class="slider" type="range" min="16" max="64" value="24"></td>
+					</tr>
+					<tr>
+						<td class="option" id="textROpacity">Ready Opacity</td>
+						<td class="input"><input id="sliderROpacity" class="slider" type="range" min="0" max="100" value="98"></td>
+						<td class="option" id="textPadding">Padding</td>
+						<td class="input"><input id="sliderPadding" class="slider" type="range" min="0" max="10" value="0"></td>
+					</tr>
+					<tr>
+						<td class="option" id="textCDOpacity">CD Opacity</td>
+						<td class="input"><input id="sliderCDOpacity" class="slider" type="range" min="0" max="100" value="94"></td>
+					</tr>
+					<tr>
+						<td class="option"></td>
+						<td class="option"><button id="save">Save</button></td>
+						<td class="option"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="skills">
+			<table id="skillstable" style="width: 93px;">
+				<tbody id="skillstbd" style="width: 93px;">
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

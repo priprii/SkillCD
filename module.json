@@ -1,0 +1,15 @@
+{
+    "name": "SkillCD",
+    "options": {
+        "niceName": "SkillCD",
+        "guiName": "SkillCD",
+        "settingsFile": "config.json",
+        "settingsVersion": 3,
+		"reloadable": true
+    },
+    "author": "Primu",
+    "description": "Visually keep track of skill cooldowns.",
+    "servers": [""],
+    "supportUrl": "",
+    "version": "1.0"
+}

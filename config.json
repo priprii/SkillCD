@@ -1,0 +1,21 @@
+{
+    "version": 3,
+    "data": {
+        "winPos": [
+            0,
+            0
+        ],
+        "iconSize": "28",
+        "skillGroups": null,
+        "enabled": true,
+        "configKeybind": "Ctrl+Shift+K",
+        "winConfigPos": [
+            0,
+            0
+        ],
+        "iconPadding": "0",
+        "rOpacity": "100",
+        "cdOpacity": "10",
+        "outOfCombatTime": "6"
+    }
+}
