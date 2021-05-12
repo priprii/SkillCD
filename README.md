@@ -26,6 +26,7 @@ The SkillCD UI will be visible whenever you use a skill.
 	
 * Tracked skills can be removed by right-clicking their icon in the config.
 * You can also change them to other skills by left-clicking them and using a different skill in-game.
+* Save profiles of tracked skills are class specific (Eg. If 2 of your characters are Lancers, they'll both have the same tracked skills)
 	
 * The SkillCD UI can be moved only while the config is open.
 * * When config is closed, the SkillCD UI will have click-through behaviour.
