@@ -124,7 +124,7 @@ module.exports = function SkillCD(mod) {
 		UI.window.setIgnoreMouseEvents(!uiConfigVisible);
 		UI.window.setAlwaysOnTop(true);
 		UI.window.on('move', () => { uiMoving = true; });
-		UI.window.on('moved', () => { mod.setTimeout(() => { uiMoving = false; }, 500); });
+		UI.window.on('moved', () => { mod.setTimeout(() => { uiMoving = false; mod.settings.winPos = UI.window.getPosition(); }, 500); });
 		UI.window.on('close', () => {
 			mod.settings.winPos = UI.window.getPosition();
 			uiVisible = false;
@@ -221,6 +221,7 @@ module.exports = function SkillCD(mod) {
 		
 		if(outOfCombatTime == mod.settings.outOfCombatTime) {
 			UI.send('UI_VISIBLE', true);
+			UI.window.setAlwaysOnTop(true);
 			outOfCombatTime -= 1;
 			setTimeout(outOfCombatTimer, 1000);
 		} else {
