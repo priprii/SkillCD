@@ -76,6 +76,8 @@ module.exports = function SkillCD(mod) {
 		});
 	}
 	
+	loadSkillGroups();
+	
 	mod.hook('S_LOGIN', 14, e => {
 		classId = (mod.game.me.templateId - 10101) % 100;
 		loadSkillGroups();
@@ -120,6 +122,7 @@ module.exports = function SkillCD(mod) {
 		UI.window.setBounds(maxIconRows * (mod.settings.iconSize + 2), classSkillGroups.get(classId).length * (mod.settings.iconSize + 2));
 		UI.window.setVisibleOnAllWorkspaces(true);
 		UI.window.setIgnoreMouseEvents(!uiConfigVisible);
+		UI.window.setAlwaysOnTop(true);
 		UI.window.on('move', () => { uiMoving = true; });
 		UI.window.on('moved', () => { mod.setTimeout(() => { uiMoving = false; }, 500); });
 		UI.window.on('close', () => {
