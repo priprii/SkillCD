@@ -169,6 +169,7 @@ module.exports = function SkillCD(mod) {
 		mod.settings.enabled = configSettings.enabled;
 		mod.settings.configKeybind = configSettings.configKeybind;
 		mod.settings.outOfCombatTime = configSettings.outOfCombatTime;
+		outOfCombatTime = mod.settings.outOfCombatTime;
 		mod.settings.iconSize = configSettings.iconSize;
 		mod.settings.iconPadding = configSettings.iconPadding;
 		mod.settings.rOpacity = configSettings.rOpacity;
