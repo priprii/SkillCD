@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						nodes[i] = document.createElement('tr');
 					}
 					var skillGroup = skillGroups[i][n];
-					nodes[i].innerHTML += `<td style="padding: ${configSettings.iconPadding}; opacity: ${isVisible ? configSettings.rOpacity / 100 : 0};"><div id="${skillGroup.skillId}" class="skill" data-skill="${skillGroup.skillId}" data-cooldown="" data-remaining="" style="background-image: url('skills/${skillGroup.skillIcon}.png'); width: ${configSettings.iconSize}; height: ${configSettings.iconSize}; line-height: ${configSettings.iconSize};"></div></td>`;
+					nodes[i].innerHTML += `<td style="padding: ${configSettings.iconPadding}; opacity: ${isVisible ? (configSettings.rOpacity / 100).toFixed(1) : 0};"><div id="${skillGroup.skillId}" class="skill" data-skill="${skillGroup.skillId}" data-cooldown="" data-remaining="" style="background-image: url('skills/${skillGroup.skillIcon}.png'); width: ${configSettings.iconSize}; height: ${configSettings.iconSize}; line-height: ${configSettings.iconSize};"></div></td>`;
 				}
 			}
 			for(var m = 0; m < nodes.length; m++) {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	function activateSkill(target, cooldown, useTime) {
-		target.parentNode.opacity = `${configSettings.cdOpacity / 100}`;
+		target.parentNode.style.opacity = `${(configSettings.cdOpacity / 100).toFixed(1)}`;
 		target.style.setProperty('--time-left', '100%');
 		target.setAttribute('data-cooldown', `${cooldown}`);
 		target.style.lineHeight = target.style.width;
@@ -71,10 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			var cdRemaining = cdTimeRemaining(useTime, cooldown);
 			target.setAttribute('data-remaining', `${cdRemaining}`);
 			
+			target.parentNode.style.opacity = `${(configSettings.cdOpacity / 100).toFixed(1)}`;
 			target.style.setProperty('--time-left', `${cdRemaining / cooldown * 100}%`);
 			target.setAttribute('data-text', `${(cdRemaining / 1000).toFixed(1)}`);
 			if(cdRemaining <= 0) {
-				target.parentNode.opacity = `${configSettings.rOpacity / 100}`;
+				target.parentNode.style.opacity = `${(configSettings.rOpacity / 100).toFixed(1)}`;
 				target.setAttribute('data-text', '');
 				clearInterval(cdInterval);
 			}
