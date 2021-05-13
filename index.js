@@ -196,13 +196,13 @@ module.exports = function SkillCD(mod) {
 		UI.window.setBounds(maxIconRows * (mod.settings.iconSize + 2), classSkillGroups.get(classId).length * (mod.settings.iconSize + 2));
 	});
 	
-	mod.hook('S_START_COOLTIME_SKILL', 3, ({ skill, cooldown }) => {
+	mod.hook('S_START_COOLTIME_SKILL', 3, { order: -999 }, ({ skill, cooldown }) => {
 		if(skill.npc) { return; }
 		if(awaitSkill) {
+			awaitSkill = false;
 			mod.queryData("/SkillIconData/Icon@class=?&skillId=?/", [mod.game.me.class, skill.id], true, false, ["skillId", "iconName"]).then(res => {
 				if(res[0] != undefined) {
 					var skillGroups = classSkillGroups.get(classId);
-					awaitSkill = false;
 					if(skillGroups[awaitSkillGroup] == undefined) {
 						skillGroups.push([{ skillId: skill.id, skillIcon: res[0].attributes.iconName }]);
 					} else {
@@ -225,6 +225,13 @@ module.exports = function SkillCD(mod) {
 			setTimeout(outOfCombatTimer, 1000);
 		} else {
 			outOfCombatTime = mod.settings.outOfCombatTime - 1;
+		}
+	});
+	
+	mod.hook('S_DECREASE_COOLTIME_SKILL', 3, { order: -999 }, ({ skill, cooldown }) => {
+		if(skill.npc) { return; }
+		if(mod.settings.enabled && findId(classSkillGroups.get(classId), skill.id) > -1) {
+			UI.send('UI_SKILL_COOLDOWN_UPDATE', ({skillId: skill.id, cdRemaining: cooldown }));
 		}
 	});
 	
