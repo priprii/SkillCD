@@ -152,6 +152,7 @@ module.exports = function SkillCD(mod) {
 			if(UI.window != null) {
 				UI.window.setIgnoreMouseEvents(true);
 				UI.window.setFocusable(false);
+				UI.send('UI_VISIBLE', false);
 			}
 		});
 		UIConfig.window.once('ready-to-show', () => {
@@ -159,6 +160,7 @@ module.exports = function SkillCD(mod) {
 			if(UI.window != null) {
 				UI.window.setIgnoreMouseEvents(false);
 				UI.window.setFocusable(true);
+				UI.window.setAlwaysOnTop(true);
 			}
 		});
 	}
@@ -214,19 +216,22 @@ module.exports = function SkillCD(mod) {
 					UIConfig.send('UI_SKILL_CAPTURED', ({settings: mod.settings, classSkillGroups: classSkillGroups.get(classId)}));
 					UI.send('UI_SETTINGS', ({settings: mod.settings, classSkillGroups: classSkillGroups.get(classId)}));
 					UI.window.setBounds(maxIconRows * (mod.settings.iconSize + 2), classSkillGroups.get(classId).length * (mod.settings.iconSize + 2));
+					UI.send('UI_SKILL_COOLDOWN', ({skillId: skill.id, cooldown: cooldown, useTime: Date.now() }));
 				}
 			});
 		} else if(mod.settings.enabled && findId(classSkillGroups.get(classId), skill.id) > -1) {
 			UI.send('UI_SKILL_COOLDOWN', ({skillId: skill.id, cooldown: cooldown, useTime: Date.now() }));
 		}
 		
-		if(outOfCombatTime == mod.settings.outOfCombatTime) {
-			UI.send('UI_VISIBLE', true);
-			UI.window.setAlwaysOnTop(true);
-			outOfCombatTime -= 1;
-			setTimeout(outOfCombatTimer, 1000);
-		} else {
-			outOfCombatTime = mod.settings.outOfCombatTime - 1;
+		if(!uiConfigVisible) {
+			if(outOfCombatTime == mod.settings.outOfCombatTime) {
+				UI.send('UI_VISIBLE', true);
+				UI.window.setAlwaysOnTop(true);
+				outOfCombatTime -= 1;
+				setTimeout(outOfCombatTimer, 1000);
+			} else {
+				outOfCombatTime = mod.settings.outOfCombatTime - 1;
+			}
 		}
 	});
 	
@@ -238,12 +243,16 @@ module.exports = function SkillCD(mod) {
 	});
 	
 	function outOfCombatTimer() {
-		outOfCombatTime -= 1;
-		if(outOfCombatTime > 0) {
-			setTimeout(outOfCombatTimer, 1000);
+		if(!uiConfigVisible) {
+			outOfCombatTime -= 1;
+			if(outOfCombatTime > 0) {
+				setTimeout(outOfCombatTimer, 1000);
+			} else {
+				outOfCombatTime = mod.settings.outOfCombatTime;
+				UI.send('UI_VISIBLE', false);
+			}
 		} else {
 			outOfCombatTime = mod.settings.outOfCombatTime;
-			UI.send('UI_VISIBLE', false);
 		}
 	}
 	
