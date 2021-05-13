@@ -133,6 +133,7 @@ module.exports = function SkillCD(mod) {
 			UI.send('UI_SETTINGS', ({settings: mod.settings, classSkillGroups: classSkillGroups.get(classId)}));
 			if(initOnCombat) { UI.send('UI_VISIBLE', false); }
 			if(initOnConfig) { UI.send('UI_VISIBLE', true); }
+			UI.window.setAlwaysOnTop(true);
 		});
 	}
 	
@@ -156,6 +157,7 @@ module.exports = function SkillCD(mod) {
 			}
 		});
 		UIConfig.window.once('ready-to-show', () => {
+			UIConfig.window.setAlwaysOnTop(true);
 			UIConfig.send('UI_SETTINGS', ({settings: mod.settings, classSkillGroups: classSkillGroups.get(classId)}));
 			if(UI.window != null) {
 				UI.window.setIgnoreMouseEvents(false);
